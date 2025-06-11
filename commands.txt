@@ -1,0 +1,252 @@
+# ===================================================
+# SEO SCRAPPER & AUDITOR - ΕΝΤΟΛΕΣ ΧΡΗΣΗΣ
+# ===================================================
+
+# ===================================================
+# 1. SCRAPPER - ΣΥΛΛΟΓΗ ΔΕΔΟΜΕΝΩΝ WEBSITE
+# ===================================================
+
+# Βασική χρήση - crawl ολόκληρο domain
+python scrapper.py https://example.com
+
+# Με περιορισμό σελίδων
+python scrapper.py https://example.com --max-pages 20
+
+# Παραδείγματα για διάφορα sites
+python scrapper.py https://weborange.gr --max-pages 50
+python scrapper.py https://google.com --max-pages 10
+python scrapper.py https://github.com --max-pages 30
+
+# Αποτελέσματα αποθηκεύονται σε:
+# crawl_data/domain/timestamp/language/files.json
+
+# ===================================================
+# 2. SEO AUDITOR - ΑΝΑΛΥΣΗ ΜΕ OLLAMA
+# ===================================================
+
+# ----- ΑΝΑΛΥΣΗ ΟΛΟΚΛΗΡΟΥ ΦΑΚΕΛΟΥ -----
+
+# Βασική ανάλυση (full audit)
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52
+
+# Συγκεκριμένος τύπος ανάλυσης
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --mode overview
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --mode technical
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --mode pages
+
+# Με αποθήκευση σε αρχείο
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --output full_audit_report.md
+
+# Συγκεκριμένη γλώσσα
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --language el
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --language en
+
+# Λίστα διαθέσιμων γλωσσών
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --list-languages
+
+# ----- ΑΝΑΛΥΣΗ ΜΕΜΟΝΩΜΕΝΗΣ ΣΕΛΙΔΑΣ -----
+
+# Λεπτομερή ανάλυση μεμονωμένης σελίδας
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52/el/homepage.json
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52/el/etairia.json
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52/en/about.json
+
+# Με αποθήκευση σε αρχείο
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52/el/etairia.json --output etairia_audit.md
+
+# Με αυξημένο timeout για μεγάλα αρχεία (5 λεπτά)
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52/el/etairia.json --timeout 300
+
+# ----- ΔΙΑΦΟΡΕΤΙΚΑ OLLAMA MODELS -----
+
+# Με deepseek-coder (default)
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --model deepseek-coder:6.7b
+
+# Με llama2
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --model llama2
+
+# Με mistral
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --model mistral
+
+# Με custom Ollama server
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --ollama-url http://192.168.1.100:11434
+
+# ===================================================
+# 3. SEO AUDITOR - ΑΝΑΛΥΣΗ ΜΕ CHATGPT
+# ===================================================
+
+# ----- SETUP CHATGPT -----
+
+# Θέστε το API key (επιλογή 1)
+export OPENAI_API_KEY="sk-your-api-key-here"
+
+# Ή χρησιμοποιήστε παράμετρο (επιλογή 2)
+# --openai-api-key "sk-your-api-key-here"
+
+# ----- ΑΝΑΛΥΣΗ ΦΑΚΕΛΟΥ ΜΕ CHATGPT -----
+
+# Με environment variable
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --provider chatgpt
+
+# Με API key παράμετρο
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --provider chatgpt --openai-api-key "sk-your-key"
+
+# Με ChatGPT-4
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --provider chatgpt --model gpt-4
+
+# Με ChatGPT-4-turbo
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52 --provider chatgpt --model gpt-4-turbo
+
+# ----- ΜΕΜΟΝΩΜΕΝΗ ΣΕΛΙΔΑ ΜΕ CHATGPT -----
+
+# Βασική ανάλυση με ChatGPT
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52/el/etairia.json --provider chatgpt
+
+# Λεπτομερή ανάλυση με GPT-4
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52/el/etairia.json --provider chatgpt --model gpt-4
+
+# Με αποθήκευση αποτελεσμάτων
+python seo_auditor.py crawl_data/weborange.gr/2025-06-11_15-44-52/el/etairia.json --provider chatgpt --model gpt-4 --output detailed_page_audit.md
+
+# ===================================================
+# 4. ΣΥΝΔΥΑΣΤΙΚΕΣ ΕΝΤΟΛΕΣ
+# ===================================================
+
+# Crawl + Audit σε μία ροή
+python scrapper.py https://example.com --max-pages 20
+python seo_auditor.py crawl_data/example.com/[timestamp] --output site_audit.md
+
+# Crawl + Audit συγκεκριμένης γλώσσας
+python scrapper.py https://example.com --max-pages 30
+python seo_auditor.py crawl_data/example.com/[timestamp] --language el --output greek_pages_audit.md
+
+# Crawl + Single Page Audit με ChatGPT
+python scrapper.py https://example.com --max-pages 50
+python seo_auditor.py crawl_data/example.com/[timestamp]/el/homepage.json --provider chatgpt --model gpt-4
+
+# ===================================================
+# 5. ΧΡΗΣΙΜΕΣ ΕΝΤΟΛΕΣ OLLAMA
+# ===================================================
+
+# Εγκατάσταση Ollama (Linux)
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Κατέβασμα models
+ollama pull deepseek-coder:6.7b
+ollama pull llama2
+ollama pull mistral
+ollama pull codellama
+
+# Έλεγχος διαθέσιμων models
+ollama list
+
+# Εκκίνηση Ollama service
+ollama serve
+
+# Τερματισμός Ollama
+pkill ollama
+
+# ===================================================
+# 6. ΔΙΑΧΕΙΡΙΣΗ ΑΡΧΕΙΩΝ
+# ===================================================
+
+# Εύρεση πρόσφατων crawl φακέλων
+find crawl_data -type d -name "*2025*" | sort
+
+# Εύρεση JSON αρχείων συγκεκριμένης γλώσσας
+find crawl_data -name "*.json" -path "*/el/*"
+
+# Εύρεση και μέτρηση σελίδων ανά γλώσσα
+find crawl_data -name "*.json" -path "*/el/*" | wc -l
+find crawl_data -name "*.json" -path "*/en/*" | wc -l
+
+# Καθαρισμός παλιών crawl δεδομένων (προσοχή!)
+find crawl_data -type d -mtime +7 -exec rm -rf {} \;
+
+# ===================================================
+# 7. ΠΑΡΑΔΕΙΓΜΑΤΑ ΠΛΗΡΩΝ WORKFLOWS
+# ===================================================
+
+# ----- WORKFLOW 1: Γρήγορη ανάλυση site -----
+python scrapper.py https://weborange.gr --max-pages 20
+python seo_auditor.py crawl_data/weborange.gr/[latest-timestamp] --mode overview
+
+# ----- WORKFLOW 2: Λεπτομερής ανάλυση με ChatGPT -----
+export OPENAI_API_KEY="your-key"
+python scrapper.py https://example.com --max-pages 50
+python seo_auditor.py crawl_data/example.com/[timestamp] --provider chatgpt --model gpt-4 --output comprehensive_audit.md
+
+# ----- WORKFLOW 3: Ανάλυση συγκεκριμένης σελίδας -----
+python scrapper.py https://example.com --max-pages 30
+python seo_auditor.py crawl_data/example.com/[timestamp]/el/homepage.json --provider chatgpt --output homepage_audit.md
+
+# ----- WORKFLOW 4: Multi-language analysis -----
+python scrapper.py https://multilingual-site.com --max-pages 100
+python seo_auditor.py crawl_data/multilingual-site.com/[timestamp] --language el --output greek_audit.md
+python seo_auditor.py crawl_data/multilingual-site.com/[timestamp] --language en --output english_audit.md
+
+# ===================================================
+# 8. TROUBLESHOOTING
+# ===================================================
+
+# Έλεγχος αν τρέχει το Ollama
+curl http://localhost:11434/api/tags
+
+# Restart Ollama service
+sudo systemctl restart ollama
+
+# Έλεγχος Python dependencies
+pip list | grep requests
+pip list | grep beautifulsoup4
+
+# Εγκατάσταση dependencies αν λείπουν
+pip install -r requirements.txt
+pip install -r requirements_auditor.txt
+
+# Έλεγχος structure φακέλων
+ls -la crawl_data/
+tree crawl_data/ | head -20
+
+# ===================================================
+# 9. ΠΡΟΧΩΡΗΜΕΝΕΣ ΕΝΤΟΛΕΣ
+# ===================================================
+
+# Batch processing πολλών sites
+for site in "site1.com" "site2.com" "site3.com"; do
+    python scrapper.py https://$site --max-pages 30
+done
+
+# Automated audit generation
+for folder in crawl_data/*/2025*; do
+    python seo_auditor.py "$folder" --output "audit_$(basename $folder).md"
+done
+
+# Compare audits for different languages
+python seo_auditor.py crawl_data/site.com/timestamp --language el --output el_audit.md
+python seo_auditor.py crawl_data/site.com/timestamp --language en --output en_audit.md
+
+# Monitor crawl progress
+tail -f crawl_data/*/latest/crawl.log
+
+# ===================================================
+# ΣΗΜΕΙΩΣΕΙΣ:
+# 
+# 1. Αντικαταστήστε [timestamp] με πραγματικό timestamp
+# 2. Αντικαταστήστε [latest-timestamp] με το πιο πρόσφατο
+# 3. Θέστε το σωστό OPENAI_API_KEY για ChatGPT
+# 4. Βεβαιωθείτε ότι το Ollama τρέχει για local models
+# 5. Τα αποτελέσματα αποθηκεύονται στον φάκελο εργασίας
+# ===================================================
+
+
+python3 seo_auditor.py crawl_data/nessus.gr/2025-06-11_17-09-27/el/homepage.json \
+  --provider chatgpt \
+  --model gpt-4-turbo \
+  --openai-api-key=your_key \
+  --mode single
+
+  python3 seo_auditor.py crawl_data/nessus.gr/2025-06-11_17-09-27/el/homepage.json \
+  --provider chatgpt \
+  --model gpt-4-turbo \
+  --openai-api-key=secretkey \
+  --timeout 60
