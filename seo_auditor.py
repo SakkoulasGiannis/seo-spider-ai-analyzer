@@ -490,55 +490,55 @@ class SEOAuditor:
         if not self.summary:
             return "❌ No summary data available for overview audit"
         
-            prompt = """You are an experienced SEO expert. Perform a detailed audit of the following web page:
+        prompt = """You are an experienced SEO expert. Perform a detailed audit of the following web page:
 
-            URL: {page_summary['url']}
+        URL: {page_summary['url']}
 
-            Your response must include:
+        Your response must include:
 
-            ## OVERALL SCORE (0–100)
-            ## DETAILED FINDINGS
+        ## OVERALL SCORE (0–100)
+        ## DETAILED FINDINGS
 
-            ### POSITIVE POINTS
-            - What the page does well
+        ### POSITIVE POINTS
+        - What the page does well
 
-            ### ISSUES FOUND
-            - Critical and medium-priority SEO problems
+        ### ISSUES FOUND
+        - Critical and medium-priority SEO problems
 
-            ### TECHNICAL METRICS
-            - Load speed
-            - Mobile optimization
-            - Security and HTTPS
-            - Structured data and technical SEO tags
+        ### TECHNICAL METRICS
+        - Load speed
+        - Mobile optimization
+        - Security and HTTPS
+        - Structured data and technical SEO tags
 
-            ### CONTENT ANALYSIS
-            - Title and meta description quality
-            - Heading structure
-            - Keyword usage
-            - Content depth and clarity
-            - **Content Relevance & Search Intent**
-               - Does the content satisfy the intent behind likely search queries?
-               - What type of user is this content targeting?
-               - If the content is lacking, **explain what is missing**.
-               - **Provide improved examples**: suggest a better paragraph, title, or CTA based on the expected user intent.
+        ### CONTENT ANALYSIS
+        - Title and meta description quality
+        - Heading structure
+        - Keyword usage
+        - Content depth and clarity
+        - **Content Relevance & Search Intent**
+            - Does the content satisfy the intent behind likely search queries?
+            - What type of user is this content targeting?
+            - If the content is lacking, **explain what is missing**.
+            - **Provide improved examples**: suggest a better paragraph, title, or CTA based on the expected user intent.
 
-            ### LINKING STRUCTURE
-            - Internal links and their quality
-            - External links and anchor text relevance
+        ### LINKING STRUCTURE
+        - Internal links and their quality
+        - External links and anchor text relevance
 
-            ### MOBILE & ACCESSIBILITY
-            - Mobile usability
-            - Accessibility issues
+        ### MOBILE & ACCESSIBILITY
+        - Mobile usability
+        - Accessibility issues
 
-            ## RECOMMENDATIONS (WITH EXAMPLES)
-            1. Immediate (high-priority) fixes with examples
-            2. Mid-term improvements
-            3. Long-term content or UX suggestions
+        ## RECOMMENDATIONS (WITH EXAMPLES)
+        1. Immediate (high-priority) fixes with examples
+        2. Mid-term improvements
+        3. Long-term content or UX suggestions
 
-            ## ACTIONABLE NEXT STEPS
-            Give clear, specific instructions, including improved content examples if possible (e.g., “Replace paragraph X with...” or “Add a comparison table between A and B”).
+        ## ACTIONABLE NEXT STEPS
+        Give clear, specific instructions, including improved content examples if possible (e.g., “Replace paragraph X with...” or “Add a comparison table between A and B”).
 
-            Respond in Greek as the page content, use markdown formatting and emojis where helpful. Be as specific and example-driven as possible."""
+        Respond in Greek as the page content, use markdown formatting and emojis where helpful. Be as specific and example-driven as possible."""
 
 
         context = json.dumps(self.summary, ensure_ascii=False, indent=2)
