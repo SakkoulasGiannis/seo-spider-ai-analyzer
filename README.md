@@ -1,5 +1,7 @@
 # 🕷️ SEO Spider Analyzer
 
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://coff.ee/sakkoulas)
+
 A comprehensive Python-based SEO crawler and auditor that scrapes websites, analyzes technical SEO metrics, and generates detailed audit reports using AI (Ollama/ChatGPT). Features multi-language support, performance analysis, and competitive insights.
 
 ## ✨ Features
